@@ -11,7 +11,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     minlength: 6,
     maxlength: 50,
   },
@@ -40,9 +40,16 @@ userSchema.methods.isInstructor = function(){
   return this.role == 'instructor'
 }
 
-userSchema.method.comparePassword = async function(password,cb){
-  let result = await bcrypt.compare(password, this.password)
-  return cb(null, result)
+userSchema.methods.comparePassword = async function(password,cb){
+  let result;
+  try{
+    result = await bcrypt.compare(password, this.password)
+    console.log('密碼比對中')
+    return cb(null, result)
+  }catch(e){
+    console.log('比對錯誤')
+    return cb(e,result)
+  }
 }
 
 //mongoose middlewares
