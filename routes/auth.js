@@ -59,7 +59,7 @@ router.post('/login', async(req,res)=>{
     if(isMatch){
       console.log('已找到資料')
       // 製作json web token
-      const tokenObject = {_id: foundUser._Id, email: foundUser.email};
+      const tokenObject = {_id: foundUser._id, email: foundUser.email};
       const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
       return res.send({
         msg:'成功登入',
