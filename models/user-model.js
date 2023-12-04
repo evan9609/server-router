@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
   username: {
     type: String,
-    require: true,
+    required: true,
     minlength: 3,
     maxlength: 50,
   },
@@ -14,6 +14,10 @@ const userSchema = new Schema({
     require: true,
     minlength: 6,
     maxlength: 50,
+  },
+  password: {
+    type: String,
+    required: true,
   },
   role: {
     type: String,

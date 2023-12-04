@@ -4,15 +4,15 @@ const { Schema } = mongoose;
 const courseSchema = new Schema({
   id: {
     type: String,
-    require: true,
+    required: true,
   },
   description:{
     type: String,
-    require: true,
+    required: true,
   },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
