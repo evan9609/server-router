@@ -18,7 +18,7 @@ router.get('/testAPI',(req,res)=>{
 
 router.post('/register', async (req,res)=>{
   // 註冊資料格式驗證
-  console.log('格式驗證...')
+  console.log('格式驗證...',req.body)
   let { error } = registerValidation(req.body);
   if(error) return res.status(400).send(error.details[0].message)
 

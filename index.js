@@ -8,6 +8,7 @@ const courseRoute = require('./routes').course;
 const passport = require('passport')
 // require的是function,所以可以直接執行
 require('./config/passport')(passport)
+const cors = require('cors')
 
 //
 mongoose.connect('mongodb://127.0.0.1/mernDB').then(()=>{
@@ -19,6 +20,9 @@ mongoose.connect('mongodb://127.0.0.1/mernDB').then(()=>{
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+//在route之前使用
+app.use(cors())
+
 app.use('/api/user', authRoute)
 // course route只有講師可以使用,應該被JWT保護
 // 如果request header內部沒有jwt, 則 request就會被視為是 unauthorized
