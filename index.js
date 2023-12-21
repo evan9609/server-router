@@ -12,7 +12,7 @@ const cors = require('cors');
 // const path = require('path');
 
 //
-mongoose.connect('mongodb://127.0.0.1/mernDB').then(()=>{
+mongoose.connect('mongodb://localhost:27017/mernDB').then(()=>{
   console.log('Connecting to mongodb...');
 }).catch((e)=>{
   console.log(e)
