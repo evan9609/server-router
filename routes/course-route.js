@@ -81,6 +81,31 @@ router.post('/',async (req,res)=>{
   }
 })
 
+// 讓學生透過id來註冊新課程
+router.post('/enroll/:_id', async(req,res)=>{
+  let { _id } = req.params;
+  console.log('課程註冊')
+  try{
+    let course = await Course.findOne({_id});
+    let userId = req.user._id;
+    console.log(typeof String(userId))
+    if(course.students.find(name=>name === String(userId))){
+      console.log('您已經註冊過了')
+      return res.send({msg:'您已經註冊過了',result: false})
+    }else{
+      course.students.push(userId)
+      if(!course.title){
+        course.title = course.description
+      }
+      await course.save();
+      return res.send({msg:'註冊成功',result: true})
+    }
+  }catch(e){
+    console.log(e)
+    return res.status(400).send('發生錯誤')
+  }
+})
+
 // 更改課程
 router.patch('/:_id',async(req,res)=>{
   let { error } = courseValidation(req.body);
