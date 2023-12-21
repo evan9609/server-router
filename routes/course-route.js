@@ -46,6 +46,17 @@ router.get('/:_id',async(req,res)=>{
 
 })
 
+//用課程名稱尋找課程
+router.get('/findByName/:name', async(req,res)=>{
+  try{
+    let { name }  = req.params;
+    let courseFound = await Course.find({$or: [{title: new RegExp(name)},{description: new RegExp(name)}]}).populate('instructor',['email','username']).exec();
+    return res.send(courseFound)
+  } catch(e){
+    return res.status(500).send(e)
+  }
+})
+
 // 新增課程
 router.post('/',async (req,res)=>{
   // 驗證數據符合規範
